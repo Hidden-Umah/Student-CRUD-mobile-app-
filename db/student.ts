@@ -1,45 +1,35 @@
-import db from "./database";
+import db from './database'
+
 
 export const createStudent = (
-    name: string ,
-    student_id : string ,
-    email : string ,
-    picture : string ,
-    description : string ,
-    age : number ,
-    gender : string ,
-    course : string 
+  name: string,
+  student_id: string,
+  email: string,
+  picture: string,
+  description: string,
+  age: number,
+  gender: string,
+  course: string
 ) => {
-    const statment = db.prepareSync(
-        `INSERT INTO students (name, student_id , email , picture , description , age , gender , course  )
-        VALUES ( ?, ? ,? ,? ,? ,?, ? , ?)`
-    )
-
-    try {
-        statment.executeSync([name, student_id , email , picture , description , age , gender , course ])
-    } finally {
-        statment.finalizeSync
-    }
+  const statement = db.prepareSync(
+    'INSERT INTO students (name, student_id, email, picture, description, age, gender, course) ' +
+    'VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+  )
+  try {
+    statement.executeSync([name, student_id, email, picture, description, age, gender, course])
+  } finally {
+    statement.finalizeSync()
+  }
 }
 
 
-
-export const getStudents =() => {
-    const result = db.getAllSync(
-        `SELECT * FROM students`
-    )
-
-    return result 
+export const getStudents = () => {
+  return db.getAllSync('SELECT * FROM students')
 }
 
 
-
-export const getStudentById = (id : number ) => {
-    const result = db.getFirstSync(
-        `SELECT * FROM students WHERE id = ?`, [id]
-    )
-
-    return result
+export const getStudentById = (id: number) => {
+  return db.getFirstSync('SELECT * FROM students WHERE id = ?', [id])
 }
 
 
@@ -55,18 +45,17 @@ export const updateStudent = (
   course: string
 ) => {
   const statement = db.prepareSync(
-    `UPDATE students SET 
-      name = ?, 
-      student_id = ?, 
-      email = ?, 
-      picture = ?, 
-      description = ?, 
-      age = ?, 
-      gender = ?, 
-      course = ?
-     WHERE id = ?`
+    'UPDATE students SET ' +
+    'name = ?, ' +
+    'student_id = ?, ' +
+    'email = ?, ' +
+    'picture = ?, ' +
+    'description = ?, ' +
+    'age = ?, ' +
+    'gender = ?, ' +
+    'course = ? ' +
+    'WHERE id = ?'
   )
-
   try {
     statement.executeSync([name, student_id, email, picture, description, age, gender, course, id])
   } finally {
@@ -77,9 +66,8 @@ export const updateStudent = (
 
 export const deleteStudent = (id: number) => {
   const statement = db.prepareSync(
-    `DELETE FROM students WHERE id = ?`
+    'DELETE FROM students WHERE id = ?'
   )
-
   try {
     statement.executeSync([id])
   } finally {
