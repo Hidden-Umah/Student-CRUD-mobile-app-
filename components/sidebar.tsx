@@ -1,5 +1,6 @@
-import { View, Text, Image, useWindowDimensions } from "react-native"
+import { View, Text, Image, useWindowDimensions, TouchableOpacity } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { useRouter  } from "expo-router";
 
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -9,7 +10,7 @@ import studentImage from "../assets/images/student.jpeg"
 
 export default function SideBar() {
 
-  
+  const router = useRouter()
 
   const { width, height } = useWindowDimensions()
   const SIDEBAR_WIDTH = width * 0.22
@@ -26,18 +27,30 @@ export default function SideBar() {
       gap: 20,
       position: "relative"
     }}>
-      <View style={{ width: ICON_SIZE, height: ICON_SIZE, backgroundColor: "#d2f17bff", borderRadius: 22, alignItems: "center", justifyContent: "center" }}>
+      
+      <TouchableOpacity
+       onPress={()=> router.push("/create")}
+       style={{ width: ICON_SIZE, height: ICON_SIZE, backgroundColor: "#d2f17bff", borderRadius: 22, alignItems: "center", justifyContent: "center" }}>
         <AntDesign name="user-add" size={26} color="#09090f" />
-      </View>
-      <View style={{ width: ICON_SIZE, height: ICON_SIZE, backgroundColor: "#7bb8f1ff", borderRadius: 22, alignItems: "center", justifyContent: "center" }}>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+       onPress={()=> router.push("/read")}
+       style={{ width: ICON_SIZE, height: ICON_SIZE, backgroundColor: "#7bb8f1ff", borderRadius: 22, alignItems: "center", justifyContent: "center" }}>
         <Ionicons name="people-outline" size={26} color="#09090f" />
-      </View>
-      <View style={{ width: ICON_SIZE, height: ICON_SIZE, backgroundColor: "#f8b02bff", borderRadius: 22, alignItems: "center", justifyContent: "center" }}>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+       onPress={()=> router.push("/update")}
+       style={{ width: ICON_SIZE, height: ICON_SIZE, backgroundColor: "#f8b02bff", borderRadius: 22, alignItems: "center", justifyContent: "center" }}>
         <Feather name="edit-2" size={26} color="white" />
-      </View>
-      <View style={{ width: ICON_SIZE, height: ICON_SIZE, backgroundColor: "#eb4343ff", borderRadius: 22, alignItems: "center", justifyContent: "center" }}>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+       onPress={()=> router.push("/delete")}
+       style={{ width: ICON_SIZE, height: ICON_SIZE, backgroundColor: "#eb4343ff", borderRadius: 22, alignItems: "center", justifyContent: "center" }}>
         <MaterialCommunityIcons name="delete-outline" size={30} color="white" />
-      </View>
+      </TouchableOpacity>
 
       
       <View style={{
