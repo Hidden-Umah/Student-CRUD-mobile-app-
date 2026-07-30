@@ -65,10 +65,13 @@ export default function SideBar() {
         flexDirection: "row"
       }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={studentImage}
-            style={{ width: 80, height: 80, borderRadius: 40, marginRight: 5, marginLeft: -5 }}
-          />
+          <TouchableOpacity onPress={()=>router.push("/")}>
+            <Image
+              source={studentImage}
+              style={{ width: 80, height: 80, borderRadius: 40, marginRight: 5, marginLeft: -5 }}
+            />
+          </TouchableOpacity>
+
           <View style={{ alignItems: "flex-start", justifyContent: "center", gap: 6 }}>
             <Text style={{ fontSize: 16, marginLeft: 10, fontWeight: "800", color: "white" }}>Student CRUD APP</Text>
             <Text style={{ marginLeft: 10, color: "#9b9b9bff", fontSize: 12 }}>Offline student records manager app</Text>
