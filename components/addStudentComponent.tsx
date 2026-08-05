@@ -5,6 +5,7 @@ import { useState } from "react"
 import Entypo from '@expo/vector-icons/Entypo';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import { Modal } from "react-native";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function AddStudents() {
 
@@ -116,6 +117,12 @@ export default function AddStudents() {
             onRequestClose={()=> setVisibility(false)}
           >
             <View style={{ flex: 1 , backgroundColor:"#444" , display:"flex" ,alignItems:"center" , justifyContent:"center"}}>
+
+              <View style={{  backgroundColor:"#444" , display:"flex",marginBottom:10 ,flexDirection:"row",alignItems:"center" , justifyContent:"space-evenly"}}>
+                <Ionicons name="school" size={24} color="white" />
+                <Text style={{ fontSize: 24 , color: "white" , fontWeight:600 , marginLeft:8}}>Student Courses</Text> 
+              </View>
+
               <View style={{ borderRadius: 20 , overflow:"hidden" ,}}>
                 { options.map ((option)=> (
                   <TouchableOpacity  key={option}
