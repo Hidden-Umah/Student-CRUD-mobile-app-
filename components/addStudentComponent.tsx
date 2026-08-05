@@ -7,7 +7,8 @@ import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import { Modal } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import BlurView from "expo-blur"
+import  * as  FileSystem  from "expo-file-system"
+
 
 export default function AddStudents() {
 
@@ -36,16 +37,25 @@ export default function AddStudents() {
     "Artificial Intelligence",
   ]
 
-  async function pickImage(){
+  async function pickImage() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing:true ,
-      aspect:[1,1],
-      quality:1
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1
     })
 
-    if(!result.canceled){
-      setImage(result.assets[0].uri)
+    if (!result.canceled) {
+      const uri = result.assets[0].uri
+      const filename = uri.split("/").pop()
+      const destination = (FileSystem.documentDirectory ?? "") + filename
+
+      await FileSystem.copyAsync({
+        from: uri,
+        to: destination
+      })
+
+      setImage(destination)
     }
   }
 
@@ -104,55 +114,58 @@ export default function AddStudents() {
 
 
 
+
+
       <Text style={{ fontSize: 20 , color: "white" , marginBottom:10, fontWeight:600 , marginLeft:8}}>Student Course</Text>
       <TouchableOpacity
         onPress={() =>setVisibility(true)}
       >
-        <View style={{ width: width*0.9 , height: 40 , backgroundColor:"#444", display:"flex" , flexDirection:"row" , alignItems:"center" ,justifyContent:"center", borderRadius:16 , gap:10 , position:"relative"}}>
+        <View style={{ width: width*0.9 , height: 40 ,marginBottom:30, backgroundColor:"#444", display:"flex" , flexDirection:"row" , alignItems:"center" ,justifyContent:"center", borderRadius:16 , gap:10 , position:"relative"}}>
           <Text style={{ fontSize: 17 , color: "white" , fontWeight:600 , marginLeft:8}}>{course}</Text> 
           <SimpleLineIcons name="arrow-down" size={15} color="white" />
-
-          
-          <Modal
-            visible={visibility}
-            animationType="slide"
-            onRequestClose={()=> setVisibility(false)}
-          >
-            <View style={{ flex: 1 , backgroundColor:"#444" , display:"flex" ,alignItems:"center" , justifyContent:"center"}}>
-
-              <View style={{  position: "relative", backgroundColor:"#444" , display:"flex",marginBottom:10 ,flexDirection:"row",alignItems:"center" , justifyContent:"space-evenly"}}>
-                <Ionicons name="school" size={24} color="white" />
-                <Text style={{ fontSize: 24 , color: "white" , fontWeight:600 , marginLeft:8}}>Student Courses</Text> 
-
-                <TouchableOpacity style={{ position:"absolute" , top: -30 , left:210}} onPress={()=> setVisibility(false)}>
-                  <AntDesign name="close-circle" size={24} color="white"  />
-                </TouchableOpacity>
-              </View>
-
-              <View style={{ borderRadius: 20 , overflow:"hidden" ,}}>
-                { options.map ((option)=> (
-                  <TouchableOpacity  key={option}
-                    onPress={()=> handleCourseSelection(option)}
-                  >
-                    <View style={{ padding:10,width:width*0.7, backgroundColor:"#252525ff" }}>
-                      <Text style={{ fontSize: 17 , color: "white" , fontWeight:600 , marginLeft:8}}>{option}</Text> 
-                    </View>
-                  </TouchableOpacity>
-                  
-                ))}
-              </View>
-
-            </View>
-
-          </Modal>
         </View>
       </TouchableOpacity>
+      <Modal
+        visible={visibility}
+        animationType="slide"
+        onRequestClose={()=> setVisibility(false)}
+      >
+        <View style={{ flex: 1 , backgroundColor:"#444" , display:"flex" ,alignItems:"center" , justifyContent:"center"}}>
+
+          <View style={{  position: "relative", backgroundColor:"#444" , display:"flex",marginBottom:10 ,flexDirection:"row",alignItems:"center" , justifyContent:"space-evenly"}}>
+            <Ionicons name="school" size={24} color="white" />
+            <Text style={{ fontSize: 24 , color: "white" , fontWeight:600 , marginLeft:8}}>Student Courses</Text> 
+
+            <TouchableOpacity style={{ position:"absolute" , top: -30 , left:210}} onPress={()=> setVisibility(false)}>
+              <AntDesign name="close-circle" size={24} color="white"  />
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ borderRadius: 20 , overflow:"hidden" ,}}>
+            { options.map ((option)=> (
+              <TouchableOpacity  key={option}
+                onPress={()=> handleCourseSelection(option)}
+              >
+                <View style={{ padding:10,width:width*0.7, backgroundColor:"#252525ff" }}>
+                  <Text style={{ fontSize: 17 , color: "white" , fontWeight:600 , marginLeft:8}}>{option}</Text> 
+                </View>
+              </TouchableOpacity>
+              
+            ))}
+          </View>
+
+        </View>
+      </Modal>
 
       
 
+      <Text style={{ fontSize: 20 , color: "white" , marginBottom:10, fontWeight:600 , marginLeft:8}}>Student Description</Text>
+      <TextInput placeholder="eg: Umah Asank" placeholderTextColor="#969696ff" style={{ width: width*0.9 , height : 150 , backgroundColor: "#09090f" , fontSize:17,borderRadius:13 ,borderWidth:2, paddingLeft:15 , fontWeight:600 , color:"white" , borderColor:"#444" , marginBottom:30, textAlign: "left" , textAlignVertical:"top"}}/>
 
 
-
+      <TouchableOpacity style={{ width: width*0.9 , height: 50 , backgroundColor:"#6949f7", display:"flex" , flexDirection:"row" , alignItems:"center" ,justifyContent:"center", borderRadius:16 , gap:10 , position:"relative"}}>
+        <Text style={{ fontSize: 20 , color: "white" ,  fontWeight:600 , marginLeft:8}}>Add student </Text>
+      </TouchableOpacity>
       
       
 
