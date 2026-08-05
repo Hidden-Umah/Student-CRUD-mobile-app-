@@ -6,6 +6,8 @@ import Entypo from '@expo/vector-icons/Entypo';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import { Modal } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import BlurView from "expo-blur"
 
 export default function AddStudents() {
 
@@ -118,9 +120,13 @@ export default function AddStudents() {
           >
             <View style={{ flex: 1 , backgroundColor:"#444" , display:"flex" ,alignItems:"center" , justifyContent:"center"}}>
 
-              <View style={{  backgroundColor:"#444" , display:"flex",marginBottom:10 ,flexDirection:"row",alignItems:"center" , justifyContent:"space-evenly"}}>
+              <View style={{  position: "relative", backgroundColor:"#444" , display:"flex",marginBottom:10 ,flexDirection:"row",alignItems:"center" , justifyContent:"space-evenly"}}>
                 <Ionicons name="school" size={24} color="white" />
                 <Text style={{ fontSize: 24 , color: "white" , fontWeight:600 , marginLeft:8}}>Student Courses</Text> 
+
+                <TouchableOpacity style={{ position:"absolute" , top: -30 , left:210}} onPress={()=> setVisibility(false)}>
+                  <AntDesign name="close-circle" size={24} color="white"  />
+                </TouchableOpacity>
               </View>
 
               <View style={{ borderRadius: 20 , overflow:"hidden" ,}}>
