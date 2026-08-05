@@ -1,11 +1,13 @@
-import { View, Text, TouchableOpacity, useWindowDimensions , Image} from "react-native"
+import { View, Text, TouchableOpacity, useWindowDimensions , Image , ScrollView} from "react-native"
 import SideBar from "@/components/sidebar"
+import AddStudentImage from "../assets/images/addStudent.png"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useEffect, useState, useRef } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import students from "../assets/images/students.png"
 import { Animated , Easing} from "react-native";
 import { RelativePathString, useRouter } from "expo-router";
+import AddStudents from "@/components/addStudentComponent";
 
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -52,6 +54,7 @@ export default function create() {
   }
 
   return (
+    
     <View style={{
       paddingTop: 50,
       backgroundColor: "#09090f",
@@ -71,6 +74,7 @@ export default function create() {
           paddingTop: 30,
           borderTopRightRadius : showSidebar ? 0 : 40 
         }}>
+          
 
           <View style={{
             width: width * 0.6,
@@ -104,7 +108,39 @@ export default function create() {
               </View>
             </TouchableOpacity>
 
+
+
+
+
           </View>
+
+          <View style={{ paddingBottom:40}}>
+            { showSidebar? 
+              <>
+                <Image
+                  style={{ width: width *0.7 , height: 420}}
+                  source={AddStudentImage}
+                />
+
+                <Animated.View style={{ transform:[ { translateY: slideAnim}] ,  display: "flex" , alignItems : "center" , padding: 20}}>
+                  <Text style={{ marginTop : 20 , fontSize: 20 , fontWeight: 900 , color: 'white'}}>Add Students</Text>
+                  <Text style={{ marginTop : 10 , fontSize: 14, fontWeight: 400 , color: '#858585ff'}}>Fill in the details below to add a new student to your offline records. All data is stored directly on your device.</Text>
+                </Animated.View>
+              </> : 
+              <ScrollView
+                style={{ width: width * 0.9 , height: "auto"}}
+                contentContainerStyle={{ alignItems: "flex-start", paddingTop: 20, paddingBottom: 40 }}
+                showsVerticalScrollIndicator={false}
+              >
+                <AddStudents/>
+              </ScrollView>
+              }
+              
+          </View>
+
+          
+
+          
 
           
 
